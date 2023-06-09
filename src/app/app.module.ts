@@ -5,12 +5,11 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component"
 
-import { UserService } from './user.service'
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule],
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    providers: [UserService]
+    providers: []
 })
 export class AppModule { }
