@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="min-h-full">
 
 <head>
     <title>Hello Angular</title>
@@ -7,9 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
-    <app-component>Загрузка...</app-component>
-    <div class="bg-yellow-500 border-x-violet-700 inline-block">sdfsdfsdsf</div>
+<body class="bg-black">
+    <div class="grid gap-3 grid-col-3 grid-rows-3">
+        <header class=" bg-green-500">header loading...</header>
+        <app-component class="">content loading...</app-component>
+        <footer class=" bg-red-500 ">footer loading...</footer>
+    </div>
 </body>
 
 </html>

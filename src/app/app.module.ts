@@ -3,13 +3,15 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
-import { AppComponent } from "./app.component"
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component'
 
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
+    declarations: [AppComponent, HeaderComponent, FooterComponent],
+    bootstrap: [AppComponent, HeaderComponent, FooterComponent],
     providers: []
 })
 export class AppModule { }
