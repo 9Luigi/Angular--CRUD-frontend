@@ -8,10 +8,12 @@
 </head>
 
 <body>
-    <header class="bg-green-500">header loading...</header>
-    <content class="bg-emerald-400 child:bg-inherit h-max">loading...</content>
-    <footer class="bg-red-500 fixed bottom-0 left-0 w-full">footer loading...</footer>
-    <main-menu class="hidden bg-yellow-300">menu loading...</main-menu>
+    <div class="grid grid-cols-3 container m-auto">
+        <header class="bg-green-500 col-span-3">header loading...</header>
+        <main-menu class=" bg-yellow-300  child:bg-inherit">menu loading...</main-menu>
+        <content class="bg-emerald-400  child:bg-inherit">loading...</content>
+        <footer class="bg-red-500 ">footer loading...</footer>
+    </div>
 </body>
 
 </html>
