@@ -5,11 +5,15 @@
     <title>Hello Angular</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 
 <body>
-    <app-component>Загрузка...</app-component>
+    <div class="grid grid-cols-9 grid-rows-10 container m-auto h-screen">
+        <header class="bg-green-500 col-span-9">header loading...</header>
+        <main-menu class=" bg-yellow-300  row-span-6 child:bg-inherit">menu loading...</main-menu>
+        <content class="bg-emerald-400 col-span-8 row-span-6   child:bg-inherit">loading...</content>
+        <footer class="bg-red-500 col-span-9">footer loading...</footer>
+    </div>
 </body>
 
 </html>
