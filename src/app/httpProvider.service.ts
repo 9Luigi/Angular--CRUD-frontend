@@ -3,11 +3,11 @@ import { WebApi } from './webApi.service';
 import { Observable } from 'rxjs';
 
 var apiUrl = "";
-var httpLink = { //object with fields for all actions with book
-  getAllBooks: apiUrl + "/api/book/getAllBooks",
-  deleteBookById: apiUrl + "/api/book/deleteBookById",
-  getBookById: apiUrl + "/api/book/getBookById",
-  saveBook: apiUrl + "/api/book/saveBook",
+var httpLink = { //object with fields for all CRUD operations
+  getAll: apiUrl + "/api/getAll",
+  deleteById: apiUrl + "/api/deleteById",
+  getById: apiUrl + "/api/getById",
+  save: apiUrl + "/api/save",
 }
 
 @Injectable({
@@ -16,5 +16,16 @@ var httpLink = { //object with fields for all actions with book
 export class CRUDService {
   constructor(private webApiService: WebApi) { }
 
-  
+  public getAll(): Observable<any> {
+    return this.webApiService.get(httpLink.getAll);
+  }
+  public deleteById(model: any): Observable<any> {
+    return this.webApiService.post(httpLink.deleteById + '?id=' + model, "");
+  }
+  public getById(model: any): Observable<any> {
+    return this.webApiService.get(httpLink.getById + '?id=' + model);
+  }
+  public save(model: any): Observable<any> {
+    return this.webApiService.post(httpLink.save, model);
+  }
 }
