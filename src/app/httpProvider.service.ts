@@ -11,13 +11,13 @@ var httpLink = { //object with fields for all CRUD operations
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' //inject service in main module for all components
 })
 export class CRUDService {
-  constructor(private webApiService: WebApi) { }
+  constructor(private webApiService: WebApi) { } //inject service
 
   public getAll(): Observable<any> {
-    return this.webApiService.get(httpLink.getAll);
+    return this.webApiService.get(httpLink.getAll); //all 4 methods calls webApi 2 base methods(get,post) wich returns observable
   }
   public deleteById(model: any): Observable<any> {
     return this.webApiService.post(httpLink.deleteById + '?id=' + model, "");

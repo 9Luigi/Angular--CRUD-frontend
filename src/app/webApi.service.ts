@@ -18,11 +18,9 @@ export class WebApi {
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache'
       }),
-      observe: "response" as 'body'
+      observe: "response" as 'body' //TODO what is that field means?
     };
-    return this.httpClient.get(
-      url, httpOptions
-    ).pipe(map((response: any) => this.ReturnResponseData(response)))
+    return this.httpClient.get(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)))
   }
 
   post(url: string, model: any): Observable<any> {
