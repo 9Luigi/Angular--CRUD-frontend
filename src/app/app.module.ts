@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 
+import { HttpProvider } from './httpProvider.service';
+import { WebApi } from "./webApi.service";
 const routes: Routes = [
     { path: '', redirectTo: 'Home', pathMatch: 'full' }
 
@@ -18,6 +20,6 @@ const routes: Routes = [
     imports: [BrowserModule, FormsModule, HttpClientModule],
     declarations: [ContentComponent, HeaderComponent, FooterComponent, MainMenuComponent],
     bootstrap: [ContentComponent, HeaderComponent, FooterComponent, MainMenuComponent],
-    providers: []
+    providers: [HttpProvider, WebApi]
 })
 export class AppModule { }

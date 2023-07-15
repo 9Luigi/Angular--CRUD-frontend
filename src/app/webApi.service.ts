@@ -14,13 +14,12 @@ export class WebApi {
   get(url: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/json; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
+        'Content-type': 'application/json',
+        'Catch-control': 'no-cache'
       }),
-      observe: "response" as 'body' //TODO what is that field means?
+      observe: 'response' as 'body' //TODO get meaning of this
     };
-    return this.httpClient.get(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)))
+    return this.httpClient.get(url, httpOptions).pipe(map((response) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
 
   post(url: string, model: any): Observable<any> {

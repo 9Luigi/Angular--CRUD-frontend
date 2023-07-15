@@ -13,7 +13,7 @@ var httpLink = { //object with fields for all CRUD operations
 @Injectable({
   providedIn: 'root' //inject service in main module for all components
 })
-export class CRUDService {
+export class HttpProvider {
   constructor(private webApiService: WebApi) { } //inject service
 
   public getAll(): Observable<any> {
