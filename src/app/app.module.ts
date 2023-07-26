@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { ContentComponent } from "./content/content.component";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
+// import { MainMenuComponent } from './main-menu/main-menu.component';
 
 import { HttpProvider } from './httpProvider.service';
 import { WebApi } from "./webApi.service";
@@ -18,8 +18,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule],
-    declarations: [ContentComponent, HeaderComponent, FooterComponent, MainMenuComponent],
-    bootstrap: [ContentComponent, HeaderComponent, FooterComponent, MainMenuComponent],
+    declarations: [ContentComponent, HeaderComponent, FooterComponent],
+    bootstrap: [ContentComponent, HeaderComponent, FooterComponent],
     providers: [HttpProvider, WebApi]
 })
 export class AppModule { }
