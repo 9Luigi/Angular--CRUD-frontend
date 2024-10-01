@@ -22,7 +22,6 @@ export class WebApi {
     };
     console.log(httpOptions);
     return this.httpClient.get(url, httpOptions).pipe(map((response) => this.ReturnResponseData(response)), catchError(this.handleError));
-
   }
 
   post(url: string, model: any): Observable<any> {
@@ -30,11 +29,9 @@ export class WebApi {
       headers: new HttpHeaders({
         'Content-type': 'application/json, charset=utf-8'
       }),
-
     }
     return this.httpClient.post(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError))
   }
-
   private ReturnResponseData(response: any) {
     return response;
   }

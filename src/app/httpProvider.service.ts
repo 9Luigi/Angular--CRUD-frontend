@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { WebApi } from './webApi.service';
 import { Observable } from 'rxjs';
 
-var apiUrl = "https://localhost:7210";
+var apiUrl = "https://localhost:44303"; //backend
 var httpLink = { //object with fields for all CRUD operations
-  getAll: apiUrl + "/api/getall",
-  deleteById: apiUrl + "/api/deleteById",
-  getById: apiUrl + "/api/getById",
-  save: apiUrl + "/api/save",
+  getAll: apiUrl + "/api/users/getall",
+  deleteById: apiUrl + "/api/users/deleteById",
+  getById: apiUrl + "/api/users/getUserByID",
+  save: apiUrl + "/api/users/add",
 }
 
 @Injectable({
@@ -16,11 +16,11 @@ var httpLink = { //object with fields for all CRUD operations
 export class HttpProvider {
   constructor(private webApiService: WebApi) { } //inject service
 
-  public getAll(): Observable<any> {
-    return this.webApiService.get(httpLink.getAll); //all 4 methods calls webApi 2 base methods(get,post) wich returns observable
+  public getAll(): Observable<any>{
+    return this.webApiService.get(httpLink.getAll);
   }
   public deleteById(model: any): Observable<any> {
-    return this.webApiService.post(httpLink.deleteById + '?id=' + model, "");
+    return this.webApiService.post(httpLink.deleteById+'?id',model);
   }
   public getById(model: any): Observable<any> {
     return this.webApiService.get(httpLink.getById + '?id=' + model);
@@ -29,3 +29,4 @@ export class HttpProvider {
     return this.webApiService.post(httpLink.save, model);
   }
 }
+
