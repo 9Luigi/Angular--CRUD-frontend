@@ -1,9 +1,32 @@
-<div>
-    <th>Position</th><th>ID</th><th>Name</th><th>Age</th>
-    <tr *ngFor="let item of loadedContentArray; let i=index">
-        <td>{{i+1}}</td>
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.age}}</td>
-    </tr>
+<div class="mt-2 mx-2">
+    <ng-container *ngIf="fullListRequested">
+        <table class="border-separate border-spacing-y-3 bg-green-400 w-full shadow-md table-auto text-center">
+            <th class="p-4">ID</th>
+            <th class="p-4">Name</th>
+            <th class="p-4">Age</th>
+            <tr *ngFor="let item of loadedUsersArray; let i=index"
+                class="border border-slate-400  tracking-wider bg-green-300">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <button class="font-bold py-2 px-4" (click)="getUserById(item.id)">
+                    Edit
+                </button>
+                <button class="font-bold py-2 px-4" (click)="deleteById(item.id);">
+                    Delete
+                </button>
+            </tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="!fullListRequested">
+            <form #userPutForm="ngForm" novalidate> 
+                <label for="name">Name</label>
+                <input type="text" name="name" value="{{loadedUserObject.name}}" id="name" >
+                <label for="age">Age</label>
+                <input type="text" name="age" id="age" value="{{loadedUserObject.age}}">
+            </form>
+            <button class="font-bold py-2 px-4" (click)="fullListRequestedTrue()">
+                Back
+            </button>
+    </ng-container>
 </div>

@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 
 var apiUrl = "https://localhost:44303"; //backend
 var httpLink = { //object with fields for all CRUD operations
-  getAll: apiUrl + "/api/users/getall",
-  deleteById: apiUrl + "/api/users/deleteById",
-  getById: apiUrl + "/api/users/getUserByID",
-  save: apiUrl + "/api/users/add",
+  getAll: apiUrl + "/",
+  deleteById: apiUrl + "/api/users/",
+  getById: apiUrl + "/api/users/",
+  save: apiUrl + "/api/users/",
 }
 
 @Injectable({
@@ -16,14 +16,15 @@ var httpLink = { //object with fields for all CRUD operations
 export class HttpProvider {
   constructor(private webApiService: WebApi) { } //inject service
 
-  public getAll(): Observable<any>{
+  public getAll(): Observable<any> {
     return this.webApiService.get(httpLink.getAll);
   }
   public deleteById(model: any): Observable<any> {
-    return this.webApiService.post(httpLink.deleteById+'?id',model);
+    console.log(httpLink.deleteById + model);
+    return this.webApiService.delete(httpLink.deleteById  + model, "");
   }
   public getById(model: any): Observable<any> {
-    return this.webApiService.get(httpLink.getById + '?id=' + model);
+    return this.webApiService.get(httpLink.getById + model);
   }
   public save(model: any): Observable<any> {
     return this.webApiService.post(httpLink.save, model);

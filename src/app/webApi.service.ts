@@ -30,7 +30,15 @@ export class WebApi {
         'Content-type': 'application/json, charset=utf-8'
       }),
     }
-    return this.httpClient.post(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError))
+    return this.httpClient.post(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
+  }
+  delete(url: string, model: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json, charset=utf-8'
+      }),
+    };
+    return this.httpClient.delete(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
   private ReturnResponseData(response: any) {
     return response;
