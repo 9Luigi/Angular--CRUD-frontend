@@ -8,7 +8,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class WebApi {
-
+  //TODO change model-->to more specific entity
   constructor(private httpClient: HttpClient) { }
 
   get(url: string): Observable<any> {
@@ -39,6 +39,14 @@ export class WebApi {
       }),
     };
     return this.httpClient.delete(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
+  }
+  put(url: string, model: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json, charset=utf-8'
+      }),
+    };
+    return this.httpClient.put(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
   private ReturnResponseData(response: any) {
     return response;

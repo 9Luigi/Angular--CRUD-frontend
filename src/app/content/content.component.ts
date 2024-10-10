@@ -10,10 +10,13 @@ export class contentComponent implements OnInit {
     this.getFullList();
   }
   //TODO handle all errors/exceptions
-  //#region variables
+  //#region common variables
   public fullListRequested: boolean = true;
   public loadedUsersArray: any = []
   public loadedUserObject: any;
+  //#endregion
+  //#region form variables
+  public id: number;
   public name: string;
   public age: number;
   //#endregion
@@ -52,6 +55,15 @@ export class contentComponent implements OnInit {
     if (confirm("Are you sure to delete user with id " + model)) {
       this.httpProvider.deleteById(model).subscribe((data) => {
         alert("Done!")
+        this.getFullList();
+      })
+    }
+  }
+  private sendEditedUser(model: any) {
+    console.log(model);
+    if (confirm("Are you sure to delete user with id " + model)) {
+      this.httpProvider.save(model).subscribe((data) => {
+        alert("Done!");
         this.getFullList();
       })
     }
