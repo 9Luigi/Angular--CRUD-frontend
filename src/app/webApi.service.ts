@@ -27,7 +27,7 @@ export class WebApi {
   post(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/json, charset=utf-8'
+        'Content-type': 'application/json'
       }),
     }
     return this.httpClient.post(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
@@ -35,7 +35,7 @@ export class WebApi {
   delete(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/json, charset=utf-8'
+        'Content-type': 'application/json'
       }),
     };
     return this.httpClient.delete(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
@@ -43,10 +43,10 @@ export class WebApi {
   put(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-type': 'application/json, charset=utf-8'
+        'Content-type': 'application/json'
       }),
     };
-    return this.httpClient.put(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
+    return this.httpClient.put(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
   private ReturnResponseData(response: any) {
     return response;

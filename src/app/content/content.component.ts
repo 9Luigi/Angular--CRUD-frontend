@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpProvider } from '../httpProvider.service';
+import { NgForm } from '@angular/forms';
+
+class User {
+  constructor(
+    public Name: string,
+    public Surname: string,
+  ) { }
+}
+
 @Component({
   selector: 'content',
   templateUrl: './content.component.html'
@@ -16,9 +25,7 @@ export class contentComponent implements OnInit {
   public loadedUserObject: any;
   //#endregion
   //#region form variables
-  public id: number;
-  public name: string;
-  public age: number;
+  Editeduser: User = new User("","");
   //#endregion
   //TODO split CRUD and other functions to different services out of there component
   private getFullList() {
@@ -61,7 +68,7 @@ export class contentComponent implements OnInit {
   }
   private sendEditedUser(model: any) {
     console.log(model);
-    if (confirm("Are you sure to delete user with id " + model)) {
+    if (confirm("Are you sure to save user with id " + model)) {
       this.httpProvider.save(model).subscribe((data) => {
         alert("Done!");
         this.getFullList();
