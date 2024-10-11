@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { contentComponent } from "./content/content.component";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+
 // import { MainMenuComponent } from './main-menu/main-menu.component';
 
 import { HttpProvider } from './httpProvider.service';

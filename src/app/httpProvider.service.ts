@@ -8,6 +8,7 @@ var httpLink = { //object with fields for all CRUD operations
   deleteById: apiUrl + "/api/users/",
   getById: apiUrl + "/api/users/",
   save: apiUrl + "/api/users/",
+  create: apiUrl + "/api/users/",
 }
 
 @Injectable({
@@ -28,6 +29,9 @@ export class HttpProvider {
   }
   public save(model: any): Observable<any> {
     return this.webApiService.put(httpLink.save, model);
+  }
+  public create(model:any):Observable<any>{
+    return this.webApiService.post(httpLink.create, model)
   }
 }
 

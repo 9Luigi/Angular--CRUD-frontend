@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpProvider } from '../httpProvider.service';
 import { NgForm } from '@angular/forms';
-
+import { State } from '../../assets/ContentTemplateStatesEnum';
 class User {
   constructor(
     public Name: string,
     public Surname: string,
+    public Id: string,
+    public Age: number
   ) { }
 }
-
 @Component({
   selector: 'content',
   templateUrl: './content.component.html'
@@ -20,12 +21,13 @@ export class contentComponent implements OnInit {
   }
   //TODO handle all errors/exceptions
   //#region common variables
-  public fullListRequested: boolean = true;
   public loadedUsersArray: any = []
   public loadedUserObject: any;
+  public StateEnum = State;
+  public state;
   //#endregion
   //#region form variables
-  Editeduser: User = new User("","");
+  user: User = new User("", "", "", 0);
   //#endregion
   //TODO split CRUD and other functions to different services out of there component
   private getFullList() {
@@ -36,7 +38,8 @@ export class contentComponent implements OnInit {
 
       if (result) {
         this.loadedUsersArray = result;
-        this.fullListRequestedTrue();
+        //this.fullListRequestedTrue();
+        this.state = State.fullUsersListRequested
       }
       else {
         this.loadedUsersArray = 'Something went SOAD';
@@ -48,8 +51,10 @@ export class contentComponent implements OnInit {
       var result = data.body;
       console.log(result)
       if (result) {
-        this.fullListRequestedFalse();
-        this.loadedUserObject = result;
+        //this.fullListRequestedFalse();
+        this.state = State.oneOfUsersRequestedForPUT;
+        this.user = result;
+        console.log(this.user);
       }
       else {
         this.loadedUserObject = 'Something went SOAD';
@@ -66,19 +71,22 @@ export class contentComponent implements OnInit {
       })
     }
   }
-  private sendEditedUser(model: any) {
-    console.log(model);
-    if (confirm("Are you sure to save user with id " + model)) {
-      this.httpProvider.save(model).subscribe((data) => {
-        alert("Done!");
-        this.getFullList();
-      })
+  private sendUser(model: any) {
+    if (this.state == this.StateEnum.oneOfUsersRequestedForPUT) {
+      if (confirm("Are you sure to update current user")) {
+        this.httpProvider.save(model).subscribe((data) => {
+          alert("Done!");
+          this.getFullList();
+        })
+      }
     }
-  }
-  private fullListRequestedFalse() {
-    this.fullListRequested = false;
-  }
-  private fullListRequestedTrue() {
-    this.fullListRequested = true;
+    if (this.state == this.StateEnum.noUserRequestedCausePost) {
+      if (confirm("Are you sure to create new user")) {
+        this.httpProvider.create(model).subscribe((data) => {
+          alert("Done!");
+          this.getFullList();
+        })
+      }
+    }
   }
 }
