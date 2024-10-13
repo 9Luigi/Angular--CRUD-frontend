@@ -1,39 +1,67 @@
-<div class="mt-2 mx-2">
+<div class="mt-2 mx-2 flex justify-center items-center flex-wrap">
     <ng-container *ngIf="state==StateEnum.fullUsersListRequested">
-        <table class="border-separate border-spacing-y-3 bg-green-400 w-full shadow-md table-auto text-center">
+        <table class="border-separate border-spacing-y-3 bg-citron w-full shadow-md table-auto text-center">
             <th class="p-4">ID</th>
             <th class="p-4">Name</th>
             <th class="p-4">Surname</th>
             <th class="p-4">Age</th>
-            <tr *ngFor="let item of loadedUsersArray; let i=index"
-                class="border border-slate-400  tracking-wider bg-green-300">
+            <tr *ngFor="let item of loadedUsersArray | slice: 0 : countOfRecords; let i=index"
+                class="border border-slate-400  tracking-wider bg-earth_yellow">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.surname}}</td>
                 <td>{{item.age}}</td>
-                <button class="font-bold py-2 px-4" (click)="getUserById(item.id)">
+                <button class="font-bold mx-1 my-1 py-2 px-4 bg-buff hover:bg-air_force_blue rounded"
+                    (click)="getUserById(item.id)">
                     Edit
                 </button>
-                <button class="font-bold py-2 px-4" (click)="deleteById(item.id);">
+                <button class="font-bold mx-1 my-1 py-2 px-4 bg-buff hover:bg-air_force_blue rounded"
+                    (click)="deleteById(item.id);">
                     Delete
                 </button>
             </tr>
         </table>
-        <button (click)="state=StateEnum.noUserRequestedCausePost">
+        <div class="md-w:full flex">
+            <p>Restricted size, no rotation:</p>
+            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true" />
+
+            <p>Restricted size with rotation:</p>
+            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true"
+                [boundaryLinks]="true" />
+
+            <p>Restricted size with rotation and no ellipses:</p>
+            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true" />
+
+            <hr/>
+            <pre>Current page: {{ page }}</pre>
+        </div>
+        <div id="tableControlPanel" class="md-w:full flex">
+            <p class="md-w:1/2 mx-1">Displayed rows</p>
+            <select class="md-w:1/2 mx-1" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <button class="bg-buff hover:bg-air_force_blue text-white font-bold py-2 px-4 my-4 ml-8 rounded"
+            (click)="state=StateEnum.noUserRequestedCausePost">
             Add User
         </button>
     </ng-container>
     <ng-container *ngIf="state==StateEnum.oneOfUsersRequestedForPUT">
         <div class="flex justify-center mb-6">
-            <form class="w-full max-w-lg" #userPutForm="ngForm" (submit)="sendUser(user)">
+            <form class="w-full max-w-lg bg-citron w-full p-4 rounded" #userPutForm="ngForm" (submit)="sendUser(user)">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-id">
-                        ID
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-id" type="text" disabled placeholder="{{user.id}}">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-id">
+                            ID
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-id" type="text" disabled value="{{user.id}}">
+                    </div>
+                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name">
                             First Name
@@ -44,19 +72,19 @@
                             placeholder="{{user.name}}">
                         <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                     </div>
-                    <div class="w-full md:w-1/2 px-3">
+                    <div class="w-full md:w-full px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-last-name">
                             Last Name
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-last-name" type="text" [(ngModel)]="user.Surname" #Surname="ngModel"
-                            name="Surname" placeholder="{{user.surname}}">
+                            id="grid-last-name" type="text" [(ngModel)]="user.Surname" #Surname="ngModel" name="Surname"
+                            placeholder="{{user.surname}}">
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-age">
                             Age
@@ -68,18 +96,21 @@
                         <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                     </div>
                 </div>
-                <button type="submit">Save</button>
+                <button type="submit"
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">Save</button>
+                <button
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    (click)="state=StateEnum.fullUsersListRequested">
+                    Back
+                </button>
             </form>
-            <button class="font-bold py-2 px-4" (click)="state=StateEnum.fullUsersListRequested">
-                Back
-            </button>
         </div>
     </ng-container>
     <ng-container *ngIf="state==StateEnum.noUserRequestedCausePost">
         <div class="flex justify-center mb-6">
-            <form class="w-full max-w-lg" #userPutForm="ngForm" (submit)="sendUser(user)">
+            <form class="w-full max-w-lg bg-citron w-full p-4 rounded" #userPutForm="ngForm" (submit)="sendUser(user)">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name">
                             First Name
@@ -89,34 +120,37 @@
                             id="grid-first-name" type="text" [(ngModel)]="user.Name" #Name="ngModel">
                         <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                     </div>
-                    <div class="w-full md:w-1/2 px-3">
+                    <div class="w-full md:w-full px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-last-name">
                             Last Name
                         </label>
                         <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            class="appearance-none block w-full bg-blue-500 hover:beaver border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-last-name" type="text" [(ngModel)]="user.Surname" #Surname="ngModel"
                             name="Surname">
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-full px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-age">
                             Age
                         </label>
                         <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            class="appearance-none block w-full bg-blue-500 hover:beaver border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-age" type="text" [(ngModel)]="user.Age" #Age="ngModel" name="Age">
                         <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                     </div>
                 </div>
-                <button type="submit">Save</button>
+                <button type="submit"
+                    class="appearance-none block w-full bg-blue-500 hover:beaver border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">Save</button>
+                <button
+                    class="appearance-none block w-full bg-blue-500 hover:beaver border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    (click)="state=StateEnum.fullUsersListRequested">
+                    Back
+                </button>
             </form>
-            <button class="font-bold py-2 px-4" (click)="state=StateEnum.fullUsersListRequested">
-                Back
-            </button>
         </div>
     </ng-container>
 </div>

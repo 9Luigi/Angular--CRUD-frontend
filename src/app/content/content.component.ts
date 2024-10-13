@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpProvider } from '../httpProvider.service';
+import { HttpProvider } from '../services/httpProvider.service';
 import { NgForm } from '@angular/forms';
-import { State } from '../../assets/ContentTemplateStatesEnum';
+import { State } from '../modules/ContentTemplateStatesEnum';
 class User {
   constructor(
     public Name: string,
@@ -22,9 +22,10 @@ export class contentComponent implements OnInit {
   //TODO handle all errors/exceptions
   //#region common variables
   public loadedUsersArray: any = []
-  public loadedUserObject: any;
+  public loadedUserObject;
   public StateEnum = State;
   public state;
+  public countOfRecords: number = 5;
   //#endregion
   //#region form variables
   user: User = new User("", "", "", 0);

@@ -10,8 +10,8 @@ import { FooterComponent } from './footer/footer.component';
 
 // import { MainMenuComponent } from './main-menu/main-menu.component';
 
-import { HttpProvider } from './httpProvider.service';
-import { WebApi } from "./webApi.service";
+import { HttpProvider } from '../app/services/httpProvider.service';
+import { WebApi } from "./services/webApi.service";
 // const routes: Routes = [
 //     { path: '', redirectTo: 'Home', pathMatch: 'full' } //TODO maybe should use regex if it's posible
 // ]
