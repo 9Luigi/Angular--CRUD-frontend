@@ -22,19 +22,7 @@
             </tr>
         </table>
         <div class="md-w:full flex">
-            <p>Restricted size, no rotation:</p>
-            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true" />
-
-            <p>Restricted size with rotation:</p>
-            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true"
-                [boundaryLinks]="true" />
-
-            <p>Restricted size with rotation and no ellipses:</p>
-            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
-                [boundaryLinks]="true" />
-
-            <hr/>
-            <pre>Current page: {{ page }}</pre>
+            <ngbd-pagination-advanced [collectionSize]="100" [maxSize]="5"></ngbd-pagination-advanced>
         </div>
         <div id="tableControlPanel" class="md-w:full flex">
             <p class="md-w:1/2 mx-1">Displayed rows</p>

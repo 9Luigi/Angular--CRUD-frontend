@@ -19,7 +19,8 @@
                         ],
                         "aot": true,
                         "styles": [
-                            "src/input.css"
+                          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                          "src/input.css"
                         ]
                     }
                 },

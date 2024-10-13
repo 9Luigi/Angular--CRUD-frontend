@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { HttpProvider } from '../services/httpProvider.service';
-import { NgForm } from '@angular/forms';
 import { State } from '../modules/ContentTemplateStatesEnum';
 class User {
   constructor(
@@ -12,12 +11,13 @@ class User {
 }
 @Component({
   selector: 'content',
-  templateUrl: './content.component.html'
+  templateUrl: './content.component.html',
 })
 export class contentComponent implements OnInit {
   constructor(private httpProvider: HttpProvider) { }
   ngOnInit(): void {
     this.getFullList();
+   
   }
   //TODO handle all errors/exceptions
   //#region common variables
@@ -34,12 +34,9 @@ export class contentComponent implements OnInit {
   private getFullList() {
     this.httpProvider.getAll().subscribe((data) => {
       var result = data.body;
-      console.log(data);
-      console.log(data.body);
-
       if (result) {
         this.loadedUsersArray = result;
-        //this.fullListRequestedTrue();
+        console.log("Array of users size= "+this.loadedUsersArray.length);
         this.state = State.fullUsersListRequested
       }
       else {
