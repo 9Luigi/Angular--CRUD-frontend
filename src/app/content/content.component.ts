@@ -25,7 +25,9 @@ export class contentComponent implements OnInit {
   public loadedUserObject;
   public StateEnum = State;
   public state;
-  public countOfRecords: number = 5;
+  public maxSize = 5;
+  public page = 1;
+  public countOfRecords = 5;
   //#endregion
   //#region form variables
   user: User = new User("", "", "", 0);
@@ -86,5 +88,9 @@ export class contentComponent implements OnInit {
         })
       }
     }
+  }
+  getCurrentPage(page:number):void{
+    this.page = page;
+    console.log("page:" + page)
   }
 }

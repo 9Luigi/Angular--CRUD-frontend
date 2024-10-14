@@ -5,7 +5,7 @@
             <th class="p-4">Name</th>
             <th class="p-4">Surname</th>
             <th class="p-4">Age</th>
-            <tr *ngFor="let item of loadedUsersArray | slice: 0 : countOfRecords; let i=index"
+            <tr *ngFor="let item of loadedUsersArray.slice((page-1) * countOfRecords,page * countOfRecords); let i=index"
                 class="border border-slate-400  tracking-wider bg-earth_yellow">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
@@ -22,7 +22,8 @@
             </tr>
         </table>
         <div class="md-w:full flex">
-            <ngbd-pagination-advanced [collectionSize]="100" [maxSize]="5"></ngbd-pagination-advanced>
+            <ngbd-pagination-advanced (pageChangeNotify)="getCurrentPage($event)"
+               [pageSize]="countOfRecords" [collectionSize]="loadedUsersArray.length" [maxSize]="maxSize"></ngbd-pagination-advanced>
         </div>
         <div id="tableControlPanel" class="md-w:full flex">
             <p class="md-w:1/2 mx-1">Displayed rows</p>
@@ -37,6 +38,7 @@
             Add User
         </button>
     </ng-container>
+
     <ng-container *ngIf="state==StateEnum.oneOfUsersRequestedForPUT">
         <div class="flex justify-center mb-6">
             <form class="w-full max-w-lg bg-citron w-full p-4 rounded" #userPutForm="ngForm" (submit)="sendUser(user)">

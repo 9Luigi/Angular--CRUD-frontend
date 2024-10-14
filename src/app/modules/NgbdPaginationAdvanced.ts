@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
 	selector: 'ngbd-pagination-advanced',
@@ -6,8 +6,14 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 	imports: [NgbPaginationModule],
 	templateUrl: '../../assets/pagination-advanced.html',
 })
+
 export class NgbdPaginationAdvanced {
-	page = 1;
 	@Input() collectionSize;
-    @Input() maxSize;
+	@Input() maxSize;
+	@Input() pageSize;
+	page: number = 1;
+	@Output() pageChangeNotify: EventEmitter<number> = new EventEmitter<number>();
+	sendPage(): void {
+		this.pageChangeNotify.emit(this.page);
+	}
 }

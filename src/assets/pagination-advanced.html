@@ -1,4 +1,4 @@
-<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true" [ellipses]="false"
+<ngb-pagination [(page)]="page" [pageSize]="pageSize" (pageChange)="sendPage()" [collectionSize]="collectionSize"  [maxSize]="maxSize" [rotate]="true" [ellipses]="false"
                 [boundaryLinks]="true" />
             <hr/>
             <pre>Current page: {{ page }}</pre>
