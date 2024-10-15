@@ -1,5 +1,19 @@
-<div class="mt-2 mx-2 flex justify-center items-center flex-wrap">
+<div class="mt-2 mx-2">
     <ng-container *ngIf="state==StateEnum.fullUsersListRequested">
+        <div class=" flex justify-center">
+            <button class="bg-buff hover:bg-air_force_blue text-white font-bold rounded py-2 px-4  "
+                (click)="state=StateEnum.noUserRequestedCausePost">
+                Add User
+            </button>
+        </div>
+        <div id="tableControlPanel" class="flex my-2 ml-1">
+            <p class="md-w:1/2 mr-1">Displayed rows</p>
+            <select class="md-w:1/2 h-6" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
         <table class="border-separate border-spacing-y-3 bg-citron w-full shadow-md table-auto text-center">
             <th class="p-4">ID</th>
             <th class="p-4">Name</th>
@@ -21,24 +35,11 @@
                 </button>
             </tr>
         </table>
-        <div class="md-w:full flex">
-            <ngbd-pagination-advanced (pageChangeNotify)="getCurrentPage($event)"
-               [pageSize]="countOfRecords" [collectionSize]="loadedUsersArray.length" [maxSize]="maxSize"></ngbd-pagination-advanced>
+        <div *ngIf="loadedUsersArray.length>=countOfRecords" class="flex order-2 ml-1/2 justify-end mt-1">
+            <ngbd-pagination-advanced (pageChangeNotify)="getCurrentPage($event)" [pageSize]="countOfRecords"
+                [collectionSize]="loadedUsersArray.length" [maxSize]="maxSize"></ngbd-pagination-advanced>
         </div>
-        <div id="tableControlPanel" class="md-w:full flex">
-            <p class="md-w:1/2 mx-1">Displayed rows</p>
-            <select class="md-w:1/2 mx-1" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-        <button class="bg-buff hover:bg-air_force_blue text-white font-bold py-2 px-4 my-4 ml-8 rounded"
-            (click)="state=StateEnum.noUserRequestedCausePost">
-            Add User
-        </button>
     </ng-container>
-
     <ng-container *ngIf="state==StateEnum.oneOfUsersRequestedForPUT">
         <div class="flex justify-center mb-6">
             <form class="w-full max-w-lg bg-citron w-full p-4 rounded" #userPutForm="ngForm" (submit)="sendUser(user)">
