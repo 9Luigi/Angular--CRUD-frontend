@@ -5,7 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TableFilterPipe implements PipeTransform {
 
-  transform(list: any[], value: string): any[] {
-    return value ? list.filter(item => item.surname) : list;
+  transform(value: any, args?: any): any {
+    if (!value) return null;
+    if (!args) return value;
+
+    args = args.toLowerCase();
+    debugger;
+    return value.filter(function (item) {
+      return JSON.stringify(item).toLocaleLowerCase().includes(args);
+    });
   }
 }
