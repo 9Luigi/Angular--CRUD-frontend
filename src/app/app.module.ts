@@ -11,13 +11,14 @@ import {NgbdPaginationAdvanced} from './modules/NgbdPaginationAdvanced';
 import { HttpProvider } from '../app/services/httpProvider.service';
 import { WebApi } from "./services/webApi.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TableFilterPipe} from './pipes/table-filter-pipe.pipe';
 // const routes: Routes = [
 //     { path: '', redirectTo: 'Home', pathMatch: 'full' } //TODO maybe should use regex if it's posible
 // ]
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, NgbModule, NgbdPaginationAdvanced],
-    declarations: [contentComponent, HeaderComponent, FooterComponent],
+    declarations: [contentComponent, HeaderComponent, FooterComponent, TableFilterPipe],
     bootstrap: [contentComponent, HeaderComponent, FooterComponent],
     providers: [HttpProvider, WebApi]
 })

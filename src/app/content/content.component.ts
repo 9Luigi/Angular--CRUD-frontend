@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpProvider } from '../services/httpProvider.service';
 import { State } from '../modules/ContentTemplateStatesEnum';
 class User {
@@ -17,7 +17,7 @@ export class contentComponent implements OnInit {
   constructor(private httpProvider: HttpProvider) { }
   ngOnInit(): void {
     this.getFullList();
-   
+
   }
   //TODO handle all errors/exceptions
   //#region common variables
@@ -28,6 +28,7 @@ export class contentComponent implements OnInit {
   public maxSize = 5;
   public page = 1;
   public countOfRecords = 5;
+  public searchInputValue = "";
   //#endregion
   //#region form variables
   user: User = new User("", "", "", 0);
@@ -38,11 +39,11 @@ export class contentComponent implements OnInit {
       var result = data.body;
       if (result) {
         this.loadedUsersArray = result;
-        console.log("Array of users size= "+this.loadedUsersArray.length);
+        console.log("Array of users size= " + this.loadedUsersArray.length);
         this.state = State.fullUsersListRequested
       }
       else {
-        this.loadedUsersArray = 'Something went SOAD';
+        this.loadedUsersArray = result = 'Something went SOAD';
       }
     })
   }
@@ -89,7 +90,7 @@ export class contentComponent implements OnInit {
       }
     }
   }
-  getCurrentPage(page:number):void{
+  getCurrentPage(page: number): void {
     this.page = page;
     console.log("page:" + page)
   }
