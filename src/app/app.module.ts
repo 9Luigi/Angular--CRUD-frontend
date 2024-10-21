@@ -11,7 +11,7 @@ import {NgbdPaginationAdvanced} from './modules/NgbdPaginationAdvanced';
 import { HttpProvider } from '../app/services/httpProvider.service';
 import { WebApi } from "./services/webApi.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TableFilterPipe} from './pipes/table-filter-pipe.pipe';
+import { TableFilterPipe} from './pipes/table-filter.pipe';
 // const routes: Routes = [
 //     { path: '', redirectTo: 'Home', pathMatch: 'full' } //TODO maybe should use regex if it's posible
 // ]
