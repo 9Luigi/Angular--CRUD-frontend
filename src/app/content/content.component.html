@@ -7,7 +7,8 @@
                     Add User
                 </button>
             </div>
-            <div *ngIf="searchInputValue==''" id="tableControlPanel" class="justify-self-start my-2 ml-1 inline-flex row-start-2 col-start-1">
+            <div *ngIf="searchInputValue==''" id="tableControlPanel"
+                class="justify-self-start my-2 ml-1 inline-flex row-start-2 col-start-1">
                 <p class="mr-1">Displayed rows</p>
                 <select class="h-6" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
                     <option value="5">5</option>
@@ -18,33 +19,12 @@
             <div class="inline-flex my-2 ml-1 row-start-2 col-start-2">
                 <input type="text" placeholder="Search from 3 symbols" class="h-6" [(ngModel)]="searchInputValue">
             </div>
-        <div class=" flex justify-center">
-            <button class="bg-buff hover:bg-air_force_blue text-white font-bold rounded py-2 px-4  "
-                (click)="state=StateEnum.noUserRequestedCausePost">
-                Add User
-            </button>
-        </div>
-        <div id="tableControlPanel">
-            <div class="my-2 ml-1 ">
-                <p class="md-w:1/2 mr-1">Displayed rows</p>
-                <div>
-                    <select class="md-w:1/2 h-6" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                    </select>
-                </div>
-            </div>
-            <div class="w-15">
-                <input type="text" name="" id="" placeholder="Search by name from 3 symbols" class="w-25 flex ml-1">
-            </div>
         </div>
         <table class="border-separate border-spacing-y-3 bg-citron w-full shadow-md table-auto text-center">
             <th class="p-4">ID</th>
             <th class="p-4">Name</th>
             <th class="p-4">Surname</th>
             <th class="p-4">Age</th>
-
             <tr *ngFor="let item of loadedUsersArray | tableFilter : searchInputValue | slice : (page-1) * countOfRecords : page * countOfRecords"
                 class="border border-slate-400  tracking-wider bg-earth_yellow">
                 <td>{{item.id}}</td>
@@ -61,7 +41,8 @@
                 </button>
             </tr>
         </table>
-        <div *ngIf="loadedUsersArray.length>=countOfRecords && searchInputValue==''" class="flex order-2 ml-1/2 justify-end mt-1">
+        <div *ngIf="loadedUsersArray.length>=countOfRecords && searchInputValue==''"
+            class="flex order-2 ml-1/2 justify-end mt-1">
             <ngbd-pagination-advanced (pageChangeNotify)="getCurrentPage($event)" [pageSize]="countOfRecords"
                 [collectionSize]="loadedUsersArray.length" [maxSize]="maxSize"></ngbd-pagination-advanced>
         </div>
