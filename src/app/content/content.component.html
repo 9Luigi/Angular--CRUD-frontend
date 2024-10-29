@@ -6,13 +6,20 @@
                 Add User
             </button>
         </div>
-        <div id="tableControlPanel" class="flex my-2 ml-1">
-            <p class="md-w:1/2 mr-1">Displayed rows</p>
-            <select class="md-w:1/2 h-6" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-            </select>
+        <div id="tableControlPanel">
+            <div class="my-2 ml-1 ">
+                <p class="md-w:1/2 mr-1">Displayed rows</p>
+                <div>
+                    <select class="md-w:1/2 h-6" size="1" [(ngModel)]="countOfRecords" id="countOfRecordsID">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-15">
+                <input type="text" name="" id="" placeholder="Search by name from 3 symbols" class="w-25 flex ml-1">
+            </div>
         </div>
         <table class="border-separate border-spacing-y-3 bg-citron w-full shadow-md table-auto text-center">
             <th class="p-4">ID</th>

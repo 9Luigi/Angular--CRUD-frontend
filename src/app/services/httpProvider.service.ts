@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WebApi } from './webApi.service';
 import { Observable } from 'rxjs';
 
-var apiUrl = "https://localhost:44303"; //backend
+var apiUrl = "https://localhost:5001"; //backend
 var httpLink = { //object with fields for all CRUD operations
   getAll: apiUrl + "/",
   deleteById: apiUrl + "/api/users/",
