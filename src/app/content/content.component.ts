@@ -21,7 +21,7 @@ export class contentComponent implements OnInit {
   }
   //TODO handle all errors/exceptions
   //#region common variables
-  public loadedUsersArray: any = []
+  public loadedUsersArray: User[] = []
   public loadedUserObject;
   public StateEnum = State;
   public state;
@@ -42,12 +42,9 @@ export class contentComponent implements OnInit {
         console.log("Array of users size= " + this.loadedUsersArray.length);
         this.state = State.fullUsersListRequested
       }
-      else {
-        this.loadedUsersArray = result = 'Something went SOAD';
-      }
     })
   }
-  private getUserById(model: any) {
+  private getUserById(model: User) {
     this.httpProvider.getById(model).subscribe((data) => {
       var result = data.body;
       console.log(result)
@@ -62,7 +59,7 @@ export class contentComponent implements OnInit {
       }
     })
   }
-  private deleteById(model: any) {
+  private deleteById(model: User) {
     //console.log(model);
     console.log(model);
     if (confirm("Are you sure to delete user with id " + model)) {
@@ -72,12 +69,13 @@ export class contentComponent implements OnInit {
       })
     }
   }
-  private sendUser(model: any) {
+  private sendUser(model: User) {
     if (this.state == this.StateEnum.oneOfUsersRequestedForPUT) {
       if (confirm("Are you sure to update current user")) {
         this.httpProvider.save(model).subscribe((data) => {
           alert("Done!");
           this.getFullList();
+          this.user = new User("", "", "", 0);
         })
       }
     }
@@ -86,6 +84,7 @@ export class contentComponent implements OnInit {
         this.httpProvider.create(model).subscribe((data) => {
           alert("Done!");
           this.getFullList();
+          this.user = new User("", "", "", 0);
         })
       }
     }
