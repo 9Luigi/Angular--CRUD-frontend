@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root' //let all modules use this service
@@ -49,7 +49,14 @@ export class WebApi {
   private ReturnResponseData(response: any) { //future response handle
     return response;
   }
-  private handleError(error: any) { //future exception handle
-    return throwError(() => error);
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage: string;
+    if (error.error instanceof ErrorEvent){
+      errorMessage = `Error: ${error.error.message}`; //front error
+    }else{
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`; //back error
+    }
+      console.log('Error!:', errorMessage);
+      return throwError(() => errorMessage);
   }
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
-import { contentComponent } from "./content/content.component";
+import { ContentComponent } from "./content/content.component";
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbdPaginationAdvanced} from './modules/NgbdPaginationAdvanced';
@@ -18,8 +18,8 @@ import { TableFilterPipe} from './pipes/table-filter.pipe';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, NgbModule, NgbdPaginationAdvanced],
-    declarations: [contentComponent, HeaderComponent, FooterComponent, TableFilterPipe],
-    bootstrap: [contentComponent, HeaderComponent, FooterComponent],
+    declarations: [ContentComponent, HeaderComponent, FooterComponent, TableFilterPipe],
+    bootstrap: [ContentComponent, HeaderComponent, FooterComponent],
     providers: [HttpProvider, WebApi]
 })
 export class AppModule { }

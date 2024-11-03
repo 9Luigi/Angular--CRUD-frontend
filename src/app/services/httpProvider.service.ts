@@ -8,7 +8,7 @@ var httpLink = { //object with fields for all CRUD operations
   deleteById: apiUrl + "/api/users/",
   getById: apiUrl + "/api/users/",
   save: apiUrl + "/api/users/",
-  create: apiUrl + "/api/users/", //let it be)) cause backend
+  create: apiUrl + "/api/users/", //let it be)) cause backend use mapPost, mapPut... etc with same route
 }
 
 @Injectable({
