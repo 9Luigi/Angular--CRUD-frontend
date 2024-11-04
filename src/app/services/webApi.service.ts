@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' //let all modules use this service
 })
 export class WebApi {
-  //TODO change model-->to more specific entity
   constructor(private httpClient: HttpClient) { }
 
   get(url: string): Observable<any> {
@@ -18,12 +17,11 @@ export class WebApi {
         'Cache-Control': 'no-cache',
         'Accept': 'application/json'
       }),
-      observe: 'response' as 'body' //TODO get meaning of this
+      observe: 'response' as 'body' //tells that observable that returns will contain only body without headers, response codes
     };
     console.log(httpOptions);
-    return this.httpClient.get(url, httpOptions).pipe(map((response) => this.ReturnResponseData(response)), catchError(this.handleError));
+    return this.httpClient.get(url, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
-
   post(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -48,10 +46,17 @@ export class WebApi {
     };
     return this.httpClient.put(url, model, httpOptions).pipe(map((response: any) => this.ReturnResponseData(response)), catchError(this.handleError));
   }
-  private ReturnResponseData(response: any) {
+  private ReturnResponseData(response: any) { //future response handle
     return response;
   }
-  private handleError(error: any) {
-    return throwError(() => error);
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage: string;
+    if (error.error instanceof ErrorEvent){
+      errorMessage = `Error: ${error.error.message}`; //front error
+    }else{
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`; //back error
+    }
+      console.log('Error!:', errorMessage);
+      return throwError(() => errorMessage);
   }
 }
