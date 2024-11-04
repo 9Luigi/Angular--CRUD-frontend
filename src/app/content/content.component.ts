@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  OnDestroy } from '@angular/core';
 import { HttpProvider } from '../services/httpProvider.service';
 import { State } from '../modules/ContentTemplateStatesEnum';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs';
 class User {
   constructor(
     public Name: string,
@@ -13,11 +15,15 @@ class User {
   selector: 'content',
   templateUrl: './content.component.html',
 })
-export class contentComponent implements OnInit {
+export class contentComponent implements OnInit, OnDestroy {
+  private unsubscribe$ = new Subject<void>(); //subject for unsibscribe control
   constructor(private httpProvider: HttpProvider) { }
   ngOnInit(): void {
     this.getFullList();
-
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(); // notify that object destroyed
+    this.unsubscribe$.complete(); // Close subject
   }
   //TODO handle all errors/exceptions
   //#region common variables
@@ -35,7 +41,7 @@ export class contentComponent implements OnInit {
   //#endregion
   //TODO split CRUD and other functions to different services out of there component
   private getFullList() {
-    this.httpProvider.getAll().subscribe((data) => {
+    this.httpProvider.getAll().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
       var result = data.body;
       if (result) {
         this.loadedUsersArray = result;
@@ -66,7 +72,7 @@ export class contentComponent implements OnInit {
     //console.log(model);
     console.log(model);
     if (confirm("Are you sure to delete user with id " + model)) {
-      this.httpProvider.deleteById(model).subscribe((data) => {
+      this.httpProvider.deleteById(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
         alert("Done!")
         this.getFullList();
       })
@@ -75,7 +81,7 @@ export class contentComponent implements OnInit {
   private sendUser(model: any) {
     if (this.state == this.StateEnum.oneOfUsersRequestedForPUT) {
       if (confirm("Are you sure to update current user")) {
-        this.httpProvider.save(model).subscribe((data) => {
+        this.httpProvider.save(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
           alert("Done!");
           this.getFullList();
         })
@@ -83,7 +89,7 @@ export class contentComponent implements OnInit {
     }
     if (this.state == this.StateEnum.noUserRequestedCausePost) {
       if (confirm("Are you sure to create new user")) {
-        this.httpProvider.create(model).subscribe((data) => {
+        this.httpProvider.create(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
           alert("Done!");
           this.getFullList();
         })
