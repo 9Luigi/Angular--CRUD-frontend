@@ -12,13 +12,14 @@ import { HttpProvider } from '../app/services/httpProvider.service';
 import { WebApi } from "./services/webApi.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TableFilterPipe} from './pipes/table-filter.pipe';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 // const routes: Routes = [
 //     { path: '', redirectTo: 'Home', pathMatch: 'full' } //TODO maybe should use regex if it's posible
 // ]
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, NgbModule, NgbdPaginationAdvanced],
-    declarations: [ContentComponent, HeaderComponent, FooterComponent, TableFilterPipe],
+    declarations: [ContentComponent, HeaderComponent, FooterComponent, TableFilterPipe, LoadingScreenComponent],
     bootstrap: [ContentComponent, HeaderComponent, FooterComponent],
     providers: [HttpProvider, WebApi]
 })

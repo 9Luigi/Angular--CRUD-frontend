@@ -1,4 +1,4 @@
-import { Component, OnInit,  OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpProvider } from '../services/httpProvider.service';
 import { State } from '../modules/ContentTemplateStatesEnum';
 import { Subject } from 'rxjs';
@@ -15,7 +15,7 @@ class User {
   selector: 'content',
   templateUrl: './content.component.html',
 })
-export class contentComponent implements OnInit, OnDestroy {
+export class ContentComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>(); //subject for unsibscribe control
   constructor(private httpProvider: HttpProvider) { }
   ngOnInit(): void {
@@ -51,7 +51,6 @@ export class contentComponent implements OnInit, OnDestroy {
         var result = data.body;
         if (result) {
           this.loadedUsersArray = result;
-          console.log("Array of users size= " + this.loadedUsersArray.length);
           this.state = State.fullUsersListRequested
         }
         else {
@@ -61,7 +60,7 @@ export class contentComponent implements OnInit, OnDestroy {
       error: (error) => {
         this.loading = false;
         console.error("Recieve data error:", error);
-        this.errorMessage = error;
+        this.errorMessage = "Recieve data error: " + error;
       }
     });
   }
@@ -84,12 +83,11 @@ export class contentComponent implements OnInit, OnDestroy {
       }, error: (error) => {
         this.loading = false;
         console.error("Recieve data error:", error);
-        this.errorMessage = error;
+        this.errorMessage = "Recieve data error: " + error;
       }
     })
   }
   private deleteById(model: User) { //TODO handle exception 
-    //console.log(model);
     console.log(model);
     if (confirm("Are you sure to delete user with id " + model)) {
       this.httpProvider.deleteById(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
@@ -98,7 +96,7 @@ export class contentComponent implements OnInit, OnDestroy {
       })
     }
   }
-  private sendUser(model: User) { //TODO handle exception 
+  private sendUser(model: User) { //TODO handle exception; handle response with code to error field
     if (this.state == this.StateEnum.oneOfUsersRequestedForPUT) {
       if (confirm("Are you sure to update current user")) {
         this.httpProvider.save(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
@@ -108,7 +106,7 @@ export class contentComponent implements OnInit, OnDestroy {
         })
       }
     }
-    if (this.state == this.StateEnum.noUserRequestedCausePost) {
+    if (this.state == this.StateEnum.noUserRequestedCausePost) { //TODO handle response with code to error field
       if (confirm("Are you sure to create new user")) {
         this.httpProvider.create(model).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
           alert("Done!");

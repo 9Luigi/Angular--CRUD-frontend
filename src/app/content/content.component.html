@@ -1,8 +1,8 @@
-<div *ngIf="loading">LOADING...</div>
+<loading-screen *ngIf="loading"></loading-screen>
 <div *ngIf="!loading" class="mt-2 mx-2">
     <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
-      </div>
+    </div>
     <ng-container *ngIf="state==StateEnum.fullUsersListRequested">
         <div class="grid grid-rows-2 grid-cols-3 gap-4 justify-items-center">
             <div class="inline-flex row-start-1 col-start-2">
