@@ -20,7 +20,7 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, NgbModule, NgbdPaginationAdvanced],
     declarations: [ContentComponent, HeaderComponent, FooterComponent, TableFilterPipe, LoadingScreenComponent],
-    bootstrap: [ContentComponent, HeaderComponent, FooterComponent],
+    bootstrap: [ContentComponent],
     providers: [HttpProvider, WebApi]
 })
 export class AppModule { }
